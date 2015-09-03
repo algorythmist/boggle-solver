@@ -14,3 +14,4 @@ the basic rules:
 1. Words must be 3 letters or longer
 2. The letters in a word must be adjecent vertically, horizontally, or diagonally. 
 3. A letter cannot be used more than once in a single word
+4. You cannot revisit the same square twice while forming a word
