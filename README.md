@@ -6,7 +6,7 @@ a dictionary, and indeed there are several such implementations.
 
 The solution presented here provides a solution that combines a Trie data structure combined with Depth First Search.
 
-# The Game of Boggle
+## The Game of Boggle
 
 The game of boggle is described ad nauseum in multiple websites, so I will just give a brief digest of 
 the basic rules:
