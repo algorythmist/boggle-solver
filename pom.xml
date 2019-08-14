@@ -10,7 +10,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<choce.version>3.3.1</choce.version>
-		<slf4j.version>1.7.12</slf4j.version>
+		<slf4j.version>1.7.26</slf4j.version>
 		<junit.version>4.12</junit.version>
 	</properties>
 
@@ -24,6 +24,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>${slf4j.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
