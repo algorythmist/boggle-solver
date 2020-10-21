@@ -1,14 +1,16 @@
 package com.tecacet.games.boggle.io;
 
-import static org.junit.Assert.*;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.tecacet.games.boggle.FastString;
 import com.tecacet.games.boggle.Trie;
+
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class DictionaryReaderTest {
 

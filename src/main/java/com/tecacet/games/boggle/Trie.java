@@ -2,9 +2,8 @@ package com.tecacet.games.boggle;
 
 /**
  * An Immutable Trie implementation
- * 
- * @author dimitri
  *
+ * @author dimitri
  */
 public class Trie {
     /* Position of capital A in ASCII table */
@@ -12,15 +11,11 @@ public class Trie {
 
     /* Number of capital letters */
     private static final int LETTERS = 26;
-    
-    
+
+
     private Node root = new Node();
     private int size = 0;
 
-    private static class Node {
-        private Boolean valid;
-        private Node[] next = new Node[LETTERS];
-    }
 
     public Trie(String[] words) {
         for (String word : words) {
@@ -35,7 +30,6 @@ public class Trie {
     public boolean containsWord(FastString key) {
         return get(key) != null;
     }
-
 
     private Boolean get(FastString key) {
         Node x = get(root, key, 0);
@@ -83,5 +77,11 @@ public class Trie {
         return size;
     }
 
-    
+
+    private static class Node {
+        private Boolean valid;
+        private final Node[] next = new Node[LETTERS];
+    }
+
+
 }

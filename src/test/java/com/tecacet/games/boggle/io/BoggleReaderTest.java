@@ -1,14 +1,13 @@
 package com.tecacet.games.boggle.io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-import java.io.InputStream;
+import com.tecacet.games.boggle.Boggle;
 
 import org.junit.Test;
 
-import com.tecacet.games.boggle.Boggle;
-import com.tecacet.games.boggle.io.BoggleReader;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class BoggleReaderTest {
 
@@ -17,7 +16,7 @@ public class BoggleReaderTest {
         BoggleReader reader = new BoggleReader();
         InputStream is = this.getClass().getClassLoader().getResourceAsStream("boards/board4x4.txt");
         Boggle board = reader.read(is);
-        assertEquals(4,board.columns());      
+        assertEquals(4, board.columns());
     }
 
     @Test
@@ -25,7 +24,7 @@ public class BoggleReaderTest {
         BoggleReader reader = new BoggleReader();
         InputStream is = this.getClass().getClassLoader().getResourceAsStream("boards/board-antidisestablishmentarianisms.txt");
         Boggle board = reader.read(is);
-        assertEquals(29,board.columns());      
-        assertEquals(1,board.rows());      
+        assertEquals(29, board.columns());
+        assertEquals(1, board.rows());
     }
 }

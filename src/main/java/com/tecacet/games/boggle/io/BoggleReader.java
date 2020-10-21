@@ -1,16 +1,16 @@
 package com.tecacet.games.boggle.io;
 
+import com.tecacet.games.boggle.Boggle;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
-
-import com.tecacet.games.boggle.Boggle;
 
 public class BoggleReader {
 
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public Boggle read(InputStream is) throws IOException {
+    public Boggle read(InputStream is) {
         if (is == null) {
             throw new NullPointerException("Null stream");
         }
@@ -19,7 +19,7 @@ public class BoggleReader {
         int columns = scanner.nextInt();
         char[][] board;
         try {
-            board  = readBoard(scanner, rows, columns);
+            board = readBoard(scanner, rows, columns);
         } finally {
             scanner.close();
         }
@@ -35,7 +35,7 @@ public class BoggleReader {
                     board[c][r] = 'Q';
                 } else if (letter.length() != 1) {
                     throw new IllegalArgumentException("invalid character: " + letter);
-                } else if (ALPHABET.indexOf(letter) == -1) {
+                } else if (!ALPHABET.contains(letter)) {
                     throw new IllegalArgumentException("invalid character: " + letter);
                 } else {
                     board[c][r] = letter.charAt(0);

@@ -1,5 +1,10 @@
 package com.tecacet.games.boggle.swing;
 
+import com.tecacet.games.boggle.Boggle;
+import com.tecacet.games.boggle.BoggleSolver;
+import com.tecacet.games.boggle.TrieBoggleSolver;
+import com.tecacet.games.boggle.io.DictionaryReader;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -19,11 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.text.MaskFormatter;
 
-import com.tecacet.games.boggle.Boggle;
-import com.tecacet.games.boggle.BoggleSolver;
-import com.tecacet.games.boggle.TrieBoggleSolver;
-import com.tecacet.games.boggle.io.DictionaryReader;
-
 @SuppressWarnings("serial")
 public class BogglePanel extends JPanel implements BoggleView {
 
@@ -32,15 +32,13 @@ public class BogglePanel extends JPanel implements BoggleView {
     private final int size = DEFAULT_SIZE;
 
     private final AbstractFormatter formatter;
-
-    private JFormattedTextField[][] grid;
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
-
-    private JPanel gridPanel = new JPanel();
     private final JButton generate;
     private final JButton solve;
     private final JButton clear;
     private final JComboBox<Integer> sizeChooser = new JComboBox<>(new Integer[] {3, 4, 5, 6, 7, 8, 9, 10});
+    private JFormattedTextField[][] grid;
+    private final JPanel gridPanel = new JPanel();
 
     public BogglePanel() throws ParseException {
         formatter = new MaskFormatter("L");
@@ -74,6 +72,33 @@ public class BogglePanel extends JPanel implements BoggleView {
         add(gridPanel, BorderLayout.WEST);
         add(new JScrollPane(solutions), BorderLayout.EAST);
         add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    public static void main(String[] argv) {
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            try {
+                createAndShowGUI();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private static void createAndShowGUI() throws Exception {
+        DictionaryReader dictionaryReader = new DictionaryReader();
+        BogglePanel view = new BogglePanel();
+        InputStream is = view.getClass().getClassLoader().getResourceAsStream("dictionaries/dictionary-enable2k.txt");
+        BoggleSolver boggleSolver = new TrieBoggleSolver(dictionaryReader.readDictionaryAsTrie(is));
+        JFrame f = new JFrame("Boggle");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // JFrame.setDefaultLookAndFeelDecorated(true);
+
+        new BoggleController(view, DEFAULT_SIZE, boggleSolver);
+        f.getContentPane().add(view);
+        f.pack();
+        f.setResizable(false);
+        // f.setSize(500,500);
+        f.setVisible(true);
     }
 
     @Override
@@ -116,35 +141,5 @@ public class BogglePanel extends JPanel implements BoggleView {
         for (String word : words) {
             listModel.addElement(word);
         }
-    }
-
-    public static void main(String[] argv) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    createAndShowGUI();
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    private static void createAndShowGUI() throws Exception {
-        DictionaryReader dictionaryReader = new DictionaryReader();
-        BogglePanel view = new BogglePanel();
-        InputStream is = view.getClass().getClassLoader().getResourceAsStream("dictionaries/dictionary-enable2k.txt");
-        BoggleSolver boggleSolver = new TrieBoggleSolver(dictionaryReader.readDictionaryAsTrie(is));
-        JFrame f = new JFrame("Boggle");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // JFrame.setDefaultLookAndFeelDecorated(true);
-       
-        new BoggleController(view, DEFAULT_SIZE, boggleSolver);
-        f.getContentPane().add(view);
-        f.pack();
-        f.setResizable(false);
-        // f.setSize(500,500);
-        f.setVisible(true);
     }
 }

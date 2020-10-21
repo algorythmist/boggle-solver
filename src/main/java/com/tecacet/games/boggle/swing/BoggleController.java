@@ -1,30 +1,28 @@
 package com.tecacet.games.boggle.swing;
 
+import com.tecacet.games.boggle.Boggle;
+import com.tecacet.games.boggle.BoggleSolver;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComboBox;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.tecacet.games.boggle.Boggle;
-import com.tecacet.games.boggle.BoggleSolver;
-
 @SuppressWarnings("serial")
 public class BoggleController extends AbstractAction {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
     public static final String SOLVE = "SOLVE";
     public static final String GENERATE = "GENERATE";
     public static final String CLEAR = "CLEAR";
-
-    private Boggle boggle;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final BoggleView view;
-    private int size;
     private final BoggleSolver boggleSolver;
+    private Boggle boggle;
+    private int size;
 
     public BoggleController(BoggleView view, int size, BoggleSolver boggleSolver) {
         boggle = new Boggle(size, size);
@@ -49,10 +47,10 @@ public class BoggleController extends AbstractAction {
             view.populate(boggle);
         } else if (event.getActionCommand().equals(SOLVE)) {
             try {
-            	long startTime = System.currentTimeMillis();
+                long startTime = System.currentTimeMillis();
                 Collection<String> words = boggleSolver.solve(boggle);
                 long stopTime = System.currentTimeMillis();
-                logger.info("Time to solve puzzle = {} milliseconds", (stopTime-startTime));
+                logger.info("Time to solve puzzle = {} milliseconds", (stopTime - startTime));
                 view.setSolutions(words);
             } catch (Exception e) {
                 // TODO create error panel

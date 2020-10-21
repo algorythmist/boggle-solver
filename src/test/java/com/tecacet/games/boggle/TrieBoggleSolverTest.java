@@ -1,6 +1,12 @@
 package com.tecacet.games.boggle;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import com.tecacet.games.boggle.io.BoggleReader;
+import com.tecacet.games.boggle.io.DictionaryReader;
+
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,15 +16,11 @@ import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.junit.Test;
-
-import com.tecacet.games.boggle.io.BoggleReader;
-import com.tecacet.games.boggle.io.DictionaryReader;
-
 public class TrieBoggleSolverTest {
 
-    private DictionaryReader dictionaryReader = new DictionaryReader();
-    private BoggleReader reader = new BoggleReader();
+    private final DictionaryReader dictionaryReader = new DictionaryReader();
+    private final BoggleReader reader = new BoggleReader();
+    private final Pattern pattern = Pattern.compile("\\d+");
 
     @Test
     public void testSolve1() throws Exception {
@@ -79,15 +81,13 @@ public class TrieBoggleSolverTest {
         time = System.currentTimeMillis() - time;
         System.err.println("Total time = " + time);
     }
-    
-    private Pattern pattern = Pattern.compile("\\d+");
-    
+
     private int getScore(String boardFile) {
         Matcher matcher = pattern.matcher(boardFile);
         assertTrue(matcher.find());
         return Integer.parseInt(matcher.group());
     }
-    
+
     private Trie readDictionary(String dictionary) throws IOException {
         InputStream is =
                 this.getClass().getClassLoader()

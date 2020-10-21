@@ -1,24 +1,30 @@
 package com.tecacet.games.boggle;
+
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
 /**
  * String implemented as a fixed-size array allows fast operations for append and removeLast
- * 
- * @author dimitri
  *
+ * @author dimitri
  */
 public class FastString {
 
     private final char[] buffer;
     private int length;
-    
+
     public FastString() {
         this(50);
     }
-    
+
     public FastString(int maxSize) {
         this.buffer = new char[maxSize];
+    }
+
+    public static FastString fromString(String string) {
+        FastString fastString = new FastString();
+        IntStream.range(0, string.length()).map(string::charAt).forEach(c -> fastString.append((char) c));
+        return fastString;
     }
 
     public void append(char c) {
@@ -39,12 +45,6 @@ public class FastString {
 
     public String toString() {
         return new String(Arrays.copyOf(buffer, length));
-    }
-    
-    public static FastString fromString(String string) {
-        FastString fastString = new FastString();
-        IntStream.range(0, string.length()).map(i -> string.charAt(i)).forEach(c -> fastString.append((char)c));
-        return fastString;
     }
 
 }
