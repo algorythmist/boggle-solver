@@ -1,4 +1,4 @@
-# BoggleSolver 
+# Boggle Solver 
 
 Boggle is a word game where you are given a grid filled with letters and you are trying to 
 form words using squares adjacent letters. The game can be easily solved programmatically with the aid of 
@@ -15,3 +15,12 @@ the basic rules:
 2. The letters in a word must be adjecent vertically, horizontally, or diagonally. 
 3. A letter cannot be used more than once in a single word
 4. You cannot revisit the same square twice while forming a word
+
+## Run the UI
+
+To run the Swing UI, simply run the executable "BogglePanel"
+
+To start from the command line using Maven:
+```text
+mvn exec:java
+```

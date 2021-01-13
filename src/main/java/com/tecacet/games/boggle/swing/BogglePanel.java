@@ -24,7 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.text.MaskFormatter;
 
-@SuppressWarnings("serial")
 public class BogglePanel extends JPanel implements BoggleView {
 
     private static final int DEFAULT_SIZE = 12;
@@ -41,7 +40,7 @@ public class BogglePanel extends JPanel implements BoggleView {
     private final JPanel gridPanel = new JPanel();
 
     public BogglePanel() throws ParseException {
-        formatter = new MaskFormatter("L");
+        formatter = new MaskFormatter("U");
 
         gridPanel.setLayout(new GridLayout(size, size));
 
@@ -68,7 +67,8 @@ public class BogglePanel extends JPanel implements BoggleView {
         controlPanel.add(sizeChooser);
 
         setLayout(new BorderLayout());
-        //TODO add(controlPanel, BorderLayout.NORTH);
+        //TODO: Fix size control panel
+        // add(controlPanel, BorderLayout.NORTH);
         add(gridPanel, BorderLayout.WEST);
         add(new JScrollPane(solutions), BorderLayout.EAST);
         add(buttonPanel, BorderLayout.SOUTH);
@@ -91,13 +91,11 @@ public class BogglePanel extends JPanel implements BoggleView {
         BoggleSolver boggleSolver = new TrieBoggleSolver(dictionaryReader.readDictionaryAsTrie(is));
         JFrame f = new JFrame("Boggle");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // JFrame.setDefaultLookAndFeelDecorated(true);
 
         new BoggleController(view, DEFAULT_SIZE, boggleSolver);
         f.getContentPane().add(view);
         f.pack();
         f.setResizable(false);
-        // f.setSize(500,500);
         f.setVisible(true);
     }
 
@@ -129,7 +127,7 @@ public class BogglePanel extends JPanel implements BoggleView {
     public void populate(Boggle boggle) {
         for (int row = 0; row < boggle.rows(); row++) {
             for (int column = 0; column < boggle.columns(); column++) {
-                grid[row][column].setText(Character.toString(boggle.getLetter(row, column)));
+                grid[row][column].setText(String.valueOf(boggle.getLetter(row, column)));
             }
         }
         listModel.clear();

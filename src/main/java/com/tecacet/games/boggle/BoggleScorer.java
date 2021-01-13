@@ -5,7 +5,7 @@ import java.util.Collection;
 public class BoggleScorer {
 
     public int score(Collection<String> solution) {
-        return solution.stream().map(w -> scoreOf(w)).mapToInt(i -> i).sum();
+        return solution.stream().map(this::scoreOf).mapToInt(i -> i).sum();
     }
 
     public int scoreOf(String word) {
