@@ -12,14 +12,12 @@ public class DictionaryReader {
 
     public Trie readDictionaryAsTrie(InputStream is) throws IOException {
         Trie trie = new Trie();
-        Reader reader = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(reader);
-        String line;
-        while ((line = br.readLine()) != null) {
-            trie.add(line.toUpperCase());
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+            while (br.ready()) {
+                trie.add(br.readLine().toUpperCase());
+            }
         }
-        br.close();
-        reader.close();
         return trie;
     }
 

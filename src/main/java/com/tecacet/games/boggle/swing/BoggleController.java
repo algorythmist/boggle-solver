@@ -12,7 +12,6 @@ import java.util.Collection;
 import javax.swing.AbstractAction;
 import javax.swing.JComboBox;
 
-@SuppressWarnings("serial")
 public class BoggleController extends AbstractAction {
 
     public static final String SOLVE = "SOLVE";
@@ -38,27 +37,30 @@ public class BoggleController extends AbstractAction {
         if (source instanceof JComboBox) {
             JComboBox<Integer> comboBox = (JComboBox<Integer>) source;
             Integer size = (Integer) comboBox.getSelectedItem();
-            //TODO
-            this.size = size;
-            view.initGrid(size);
+            this.size = size == null ? 10 : size;
+            view.initGrid(this.size);
         }
-        if (event.getActionCommand().equals(GENERATE)) {
-            boggle.fillRandomly(System.currentTimeMillis());
-            view.populate(boggle);
-        } else if (event.getActionCommand().equals(SOLVE)) {
-            try {
-                long startTime = System.currentTimeMillis();
-                Collection<String> words = boggleSolver.solve(boggle);
-                long stopTime = System.currentTimeMillis();
-                logger.info("Time to solve puzzle = {} milliseconds", (stopTime - startTime));
-                view.setSolutions(words);
-            } catch (Exception e) {
-                // TODO create error panel
-                e.printStackTrace();
-            }
-        } else if (event.getActionCommand().equals(CLEAR)) {
-            boggle = new Boggle(size, size);
-            view.populate(boggle);
+        switch (event.getActionCommand()) {
+            case GENERATE:
+                boggle.fillRandomly(System.currentTimeMillis());
+                view.populate(boggle);
+                break;
+            case SOLVE:
+                try {
+                    long startTime = System.currentTimeMillis();
+                    Collection<String> words = boggleSolver.solve(boggle);
+                    long stopTime = System.currentTimeMillis();
+                    logger.info("Time to solve puzzle = {} milliseconds", (stopTime - startTime));
+                    view.setSolutions(words);
+                } catch (Exception e) {
+                    // TODO create error panel
+                    e.printStackTrace();
+                }
+                break;
+            case CLEAR:
+                boggle = new Boggle(size, size);
+                view.populate(boggle);
+                break;
         }
     }
 

@@ -79,7 +79,7 @@ public class BogglePanel extends JPanel implements BoggleView {
             try {
                 createAndShowGUI();
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
     }

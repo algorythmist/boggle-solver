@@ -14,16 +14,12 @@ public class BoggleReader {
         if (is == null) {
             throw new NullPointerException("Null stream");
         }
-        Scanner scanner = new Scanner(is);
-        int rows = scanner.nextInt();
-        int columns = scanner.nextInt();
-        char[][] board;
-        try {
-            board = readBoard(scanner, rows, columns);
-        } finally {
-            scanner.close();
+        try (Scanner scanner = new Scanner(is)) {
+            int rows = scanner.nextInt();
+            int columns = scanner.nextInt();
+            char[][] board = readBoard(scanner, rows, columns);
+            return new Boggle(board);
         }
-        return new Boggle(board);
     }
 
     private char[][] readBoard(Scanner scanner, int rows, int columns) {
